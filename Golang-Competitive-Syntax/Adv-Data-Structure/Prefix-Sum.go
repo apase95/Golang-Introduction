@@ -21,15 +21,21 @@ func main() {
 	writer := bufio.NewWriter(os.Stdout)
 	defer writer.Flush()
 
-	var q int
-	fmt.Fscan(reader, &q)
+	var n, q int
+	fmt.Fscan(reader, &n, &q)
+
+	arr := make([]int, n + 1)
+	pref := make([]int, n + 1)
+	for i := 1; i <= n; i++ {
+		fmt.Fscan(reader, &arr[i])
+		pref[i] = pref[i - 1] + arr[i]
+	}
+	fmt.Fprintln(writer, arr)
+	fmt.Fprintln(writer, pref)
+
 	for i := 0; i < q; i++ {
-		var n int
-		fmt.Fscan(reader, &n)
-		if n%2 == 0 {
-			fmt.Fprintln(writer, "EVEN")
-		} else {
-			fmt.Fprintln(writer, "ODD")
-		}
+		var l, r int
+		fmt.Fscan(reader, &l, &r)
+		fmt.Fprintf(writer, "[%d -> %d] = %d\n", l, r, pref[r] - pref[l - 1])
 	}
 }

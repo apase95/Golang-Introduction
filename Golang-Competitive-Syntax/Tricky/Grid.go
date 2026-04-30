@@ -21,21 +21,19 @@ func main() {
 	writer := bufio.NewWriter(os.Stdout)
 	defer writer.Flush()
 
-	var q int 
-	fmt.Fscanln(reader, &q)
-	
-	for i := 0; i < q; i++ {
-		var n int 
-		fmt.Fscanln(reader, &n)
+	var n, m int
+	fmt.Fscan(reader, &n, &m)
 
-		if n % 2 == 0 {
-			if n % 3 == 0 {
-				fmt.Fprintln(writer, "Divisible by 6")
-			} else {
-				fmt.Fprintln(writer, "Even but not divisible by 3")
-			}
-		} else {
-			fmt.Fprintln(writer, "Odd")
+
+	//----------------GRID--------------------
+	var grid = make([][]int, n)				//vector<vector<int>> grid(n, vector<int>(m, 0));
+	for i := 0; i < n; i++ {				//Grid (n * m). Value = 0
+		grid[i] = make([]int, m)
+	}
+
+	for i := 0; i < n; i++ {			
+		for j := 0; j < m; j++ {
+			fmt.Fscan(reader, &grid[i][j])  //Fill value into grid
 		}
 	}
 }
