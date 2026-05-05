@@ -52,3 +52,12 @@ func main() {
 	fmt.Println("🚀 Server is running at http://localhost:8088")
 	log.Fatal(http.ListenAndServe(":8088", mux))
 }
+
+/*
+Path: Golang-Backend-Core/3.Backend-Fundamentals/3-Middleware/Middleware-Pattern.go
+```bash
+go run Middleware-Pattern.go
+curl -X POST http://localhost:8088/api/v1/jobs
+curl -X POST -H "X-API-Key: super-secret-token" http://localhost:8088/api/v1/jobs
+```
+*/

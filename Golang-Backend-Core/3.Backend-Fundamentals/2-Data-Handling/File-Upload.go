@@ -63,3 +63,12 @@ func main() {
 		log.Fatalf("Server crashed: %v", err)
 	}
 }
+
+/*
+Path: Golang-Backend-Core/3.Backend-Fundamentals/2-Data-Handling/File-Upload.go
+```bash
+go run File-Upload.go
+echo'Hello World!' > test_script.sh
+curl -X POST -F "upload_file=@test_script.sh" http://localhost:8088/api/v1/upload
+```
+*/
