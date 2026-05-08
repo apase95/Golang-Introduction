@@ -23,6 +23,7 @@ func AuthMiddleware(next http.HandlerFunc) http.HandlerFunc {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusUnauthorized)
 			w.Write([]byte(`{"error": "Unauthorized. Please provide a valid X-API-Key"}`))
+			return
 		}
 		next(w, r)
 	}
