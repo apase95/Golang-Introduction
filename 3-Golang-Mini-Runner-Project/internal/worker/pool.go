@@ -40,14 +40,21 @@ func (p *WorkerPool) workerLoop(id int) {
 
 		job.Status = "RUNNING"
 		_ = p.store.Update(job)
-		time.Sleep(2 * time.Second)
+
+		err := ExecuteJob(job)
 
 		now := time.Now()
-		job.Status = "SUCCESS"
 		job.FinishedAt = &now
-		_ = p.store.Update(job)
 
-		log.Printf("[Worker %d] Successfully finished Job #%d\n", id, job.ID)
+		if err != nil {
+			job.Status = "FAILED"
+			log.Printf("[Worker %d] Job #%d FAILED: %v\n", id, job.ID, err)
+		} else {
+			job.Status = "SUCCESS"
+			log.Printf("[Worker %d] Successfully finished Job #%d\n", id, job.ID)
+		}
+
+		_ = p.store.Update(job)
 	}
 
 	log.Printf("[Worker %d] Queue closed. Worker shutting down...\n", id)
