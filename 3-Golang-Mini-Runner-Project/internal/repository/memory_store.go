@@ -22,7 +22,7 @@ func NewMemoryStore() *MemoryStore {
 
 func (m *MemoryStore) Save(job *models.Job) error {
 	m.mu.Lock()
-	defer m.mu.Lock()
+	defer m.mu.Unlock()
 
 	job.ID = m.nextID
 	m.jobs[job.ID] = job
@@ -32,8 +32,8 @@ func (m *MemoryStore) Save(job *models.Job) error {
 }
 
 func (m *MemoryStore) GetByID(id uint) (*models.Job, error) {
-	m.mu.Lock()
-	defer m.mu.Lock()
+	m.mu.RLock()
+	defer m.mu.Unlock()
 
 	job, exists := m.jobs[id]
 	if !exists {
@@ -45,7 +45,7 @@ func (m *MemoryStore) GetByID(id uint) (*models.Job, error) {
 
 func (m *MemoryStore) Update(job *models.Job) error {
 	m.mu.Lock()
-	defer m.mu.Lock()
+	defer m.mu.Unlock()
 
 	if _,exists := m.jobs[job.ID]; !exists {
 		return errors.New("cannot update: job not found")
