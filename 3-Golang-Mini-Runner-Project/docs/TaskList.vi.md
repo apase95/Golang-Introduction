@@ -31,18 +31,18 @@ go-mini-runner/
 ├── artifacts/                   # Thư mục chứa các file log output của Job sau khi chạy.
 └── .env                         # File biến môi trường.
 ```
-
+****
 ## 🚀 MODULE 1: SETUP, CLI & CORE MODELS
 
-- [ ] TSK-101 [Setup] Khởi tạo Project, Flags & Environment. (Estimate: 2h)
+- [x] TSK-101 [Setup] Khởi tạo Project, Flags & Environment. (Estimate: 2h)
   - Khởi tạo `go mod init`.
   - Viết `internal/config/config.go` dùng `godotenv` để load file `.env` (chứa `DB_DSN`, `PORT`, `AUTH_KEY`).
   - Tại `cmd/runner/main.go`, dùng package `flag` để nhận tham số khởi động: `--workers=5` (Số lượng worker) và `--port=8080`.
 
-- [ ] TSK-102 [Models] Định nghĩa Job Struct với GORM & JSON Tags. (Estimate: 2h)
+- [x] TSK-102 [Models] Định nghĩa Job Struct với GORM & JSON Tags. (Estimate: 2h)
   - Tạo struct `Job` gồm: `ID (uuid/uint)`, `Name`, `Command`, `Status`, `LogsPath`, `CreatedAt`, `FinishedAt`. Cài đặt đầy đủ `json:"name"` và `gorm:"primaryKey"`.
 
-- [ ] TSK-103 [Interface & Mutex] Thiết kế Store Interface & Memory Store. (Estimate: 3h)
+- [x] TSK-103 [Interface & Mutex] Thiết kế Store Interface & Memory Store. (Estimate: 3h)
   - Tạo interface `JobStore` (gồm hàm `Save()`, `GetByID()`, `Update()`).
   - Viết `memory_store.go` implement interface trên bằng `map[string]*models.Job`. Bắt buộc dùng `sync.RWMutex` để chống Data Race.
 

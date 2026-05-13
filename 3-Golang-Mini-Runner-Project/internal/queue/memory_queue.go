@@ -9,7 +9,7 @@ type MemoryQueue struct {
 	jobs chan *models.Job
 }
 
-func NewMemory(bufferSize int) *MemoryQueue {
+func NewMemoryQueue(bufferSize int) *MemoryQueue {
 	return &MemoryQueue{
 		jobs: make(chan *models.Job, bufferSize),
 	}
