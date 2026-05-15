@@ -48,14 +48,14 @@ go-mini-runner/
 
 ## ⚙️ MODULE 2: CONCURRENCY ENGINE & DEVOPS
 
-- [ ] TSK-201 [Queue] Implement In-memory Queue using Channels. (Estimate: 2h)
+- [x] TSK-201 [Queue] Implement In-memory Queue using Channels. (Estimate: 2h)
   - Create a buffered channel `chan *models.Job`. Write `Enqueue` and `Dequeue` functions.
 
-- [ ] TSK-202 [Worker] Build Worker Pool. (Estimate: 3h)
+- [x] TSK-202 [Worker] Build Worker Pool. (Estimate: 3h)
   - In `pool.go`, use a `for` loop to spawn N Goroutines (count based on the `--workers` flag).
   - Each worker listens on the channel. When a Job is received, change its status to `RUNNING`, persist it to the Store, then hand it off to the `executor` for processing.
 ****
-- [ ] TSK-203 [DevOps] Execute Shell Commands & Write Logs to File. (Estimate: 4h)
+- [x] TSK-203 [DevOps] Execute Shell Commands & Write Logs to File. (Estimate: 4h)
   - In `executor.go`, use `os/exec` to run the Job's command.
   - Apply **Read-Write-Files** knowledge: Capture all output (Stdout/Stderr) and use `os.WriteFile` to save it as a `.txt` file in the `artifacts/` directory (e.g., `artifacts/job_123_log.txt`). Update this file path in the Job's `LogsPath` field.
 
