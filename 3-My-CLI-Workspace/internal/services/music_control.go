@@ -2,9 +2,16 @@ package services
 
 import (
 	"context"
+	"fmt"
+	"net"
+	"os"
 	"os/exec"
 	"runtime"
+	"strconv"
+	"strings"
 )
+
+const mpvSocket = "/tmp/my-workspace-mpv"
 
 func getPlayerCommand(ctx context.Context, filePath string) *exec.Cmd {
 	switch runtime.GOOS {
@@ -13,29 +20,44 @@ func getPlayerCommand(ctx context.Context, filePath string) *exec.Cmd {
 	case "windows":
 		return exec.CommandContext(ctx, "ffplay", "-nodisp", "-autoexit", filePath)
 	default:
-		return exec.CommandContext(ctx, "mpv", "--no-video", "--quiet", filePath)
+		os.Remove(mpvSocket)
+		return exec.CommandContext(ctx, "mpv", "--no-video", "--quiet", "--input-ipc-server="+mpvSocket, filePath)
+		// return exec.CommandContext(ctx, "mpv", "--no-video", "--quiet", filePath)
 	}
 }
 
-func handleTrackControl(ctx context.Context, trackDone <-chan error, controlChan <-chan string) (action string, trackFinished bool) {
-	for {
-		select {
-		case <-ctx.Done():
-			return "quit", false
+func sendSeekCommand(target string) {
+	if runtime.GOOS != "linux" {
+		return
+	}
+	conn, err := net.Dial("unix", mpvSocket)
+	if err == nil {
+		defer conn.Close()
+		fmt.Fprintf(conn, "seek %s\n", target)
+	}
+}
 
-		case <-trackDone:
-			return "next", true
-
-		case input := <-controlChan:
-			switch input {
-			case "", "n", "next":
-				return "next", false
-			case "p", "prev", "b", "back":
-				return "prev", false
-			case "q", "quit", "stop":
-				return "quit", false
-			default:
+func ProcessInput(input string) (action string, value int) {
+	switch input {
+	case "", "n", "next":
+		return "next", 0
+	case "p", "prev", "b", "back":
+		return "prev", 0
+	case "q", "quit", "stop":
+		return "quit", 0
+	case "l":
+		return "seek_rel", 5
+	case "j":
+		return "seek_rel", -5
+	default:
+		parts := strings.Split(input, ":")
+		if len(parts) == 2 {
+			m, err1 := strconv.Atoi(parts[0])
+			s, err2 := strconv.Atoi(parts[1])
+			if err1 == nil && err2 == nil {
+				return "seek_abs", m*60 + s
 			}
 		}
+		return "none", 0
 	}
 }
