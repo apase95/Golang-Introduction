@@ -35,8 +35,8 @@ func PlayMusic(path string, shuffle bool) {
 	controlChan := startKeyboardListener()
 
 	color.Green("🎵 Starting Music Player...")
-	color.Yellow("💻 Controls: [Enter]/n=Next | p=Prev | l=+5s | j=-5s | 01:25=Seek | q=Quit")
-	fmt.Println(strings.Repeat("-", 65))
+	color.Yellow("💻 Controls: [Enter]/n=Next | p=Prev | k=Pause | l=+5s | j=-5s | 01:25=Seek | q=Quit")
+	fmt.Println(strings.Repeat("-", 75))
 
 	i := 0
 	for i >= 0 && i < len(playlist) {
@@ -61,13 +61,17 @@ func PlayMusic(path string, shuffle bool) {
 		}()
 
 		elapsed := 0
+		isPaused := false
 		ticker := time.NewTicker(1 * time.Second)
 		fmt.Println()
 		fmt.Print("💻 Control: ")
 		printStatus := func() {
 			m := elapsed / 60
 			s := elapsed % 60
-			fmt.Printf("\033[s\033[1A\r\033[K%s - %02d:%02d\033[u", color.CyanString("▶ Playing (%d/%d): %s", i+1, len(playlist), filepath.Base(track)), m, s)
+			statusText := "⏸ Playing"
+			if isPaused { statusText = "▶ Paused " }
+			fmt.Printf("\033[s\033[1A\r\033[K%s - %02d:%02d\033[u", 
+				color.CyanString("%s (%d/%d): %s", statusText, i+1, len(playlist), filepath.Base(track)), m, s)
 		}
 		printStatus()
 
@@ -85,8 +89,10 @@ func PlayMusic(path string, shuffle bool) {
 				action = "next"
 				break WaitLoop
 			case <-ticker.C:
-				elapsed++
-				printStatus()
+				if !isPaused {
+					elapsed++
+					printStatus()
+				}
 			case input := <-controlChan:
 				fmt.Print("\033[1A\r\033[K💻 Control: ")
 				act, val := ProcessInput(input)
@@ -101,6 +107,10 @@ func PlayMusic(path string, shuffle bool) {
 				} else if act == "seek_abs" {
 					elapsed = val
 					sendSeekCommand(fmt.Sprintf("%d absolute", val))
+					printStatus()
+				} else if act == "toggle_pause" {
+					isPaused = !isPaused
+					sendPauseToggleCommand()
 					printStatus()
 				}
 			}
