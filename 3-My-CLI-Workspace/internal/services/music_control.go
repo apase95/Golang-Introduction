@@ -37,6 +37,17 @@ func sendSeekCommand(target string) {
 	}
 }
 
+func sendPauseToggleCommand() {
+	if runtime.GOOS != "linux" {
+		return
+	}
+	conn, err := net.Dial("unix", mpvSocket)
+	if err == nil {
+		defer conn.Close()
+		fmt.Fprint(conn, "cycle pause\n")
+	}
+}
+
 func ProcessInput(input string) (action string, value int) {
 	switch input {
 	case "", "n", "next":
@@ -49,13 +60,15 @@ func ProcessInput(input string) (action string, value int) {
 		return "seek_rel", 5
 	case "j":
 		return "seek_rel", -5
+	case "k", "pause", "play":
+		return "toggle_pause", 0
 	default:
 		parts := strings.Split(input, ":")
 		if len(parts) == 2 {
 			m, err1 := strconv.Atoi(parts[0])
 			s, err2 := strconv.Atoi(parts[1])
 			if err1 == nil && err2 == nil {
-				return "seek_abs", m*60 + s
+				return "seek_abs", m * 60 + s
 			}
 		}
 		return "none", 0
