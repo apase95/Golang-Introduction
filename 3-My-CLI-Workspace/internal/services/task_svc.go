@@ -42,15 +42,14 @@ func ListTasks() {
 		return
 	}
 
-	fmt.Println("\n === YOUR TASKS ===")
+	fmt.Println("====== YOUR TASKS ======")
 	for _, t := range tasks {
 		if t.Done {
-			color.Green("  [%d] [x] %s", t.ID, t.Title)
+			color.Green("[%d] [x] %s", t.ID, t.Title)
 		} else {
-			color.Red("  [%d] [ ] %s", t.ID, t.Title)
+			color.Red("[%d] [ ] %s", t.ID, t.Title)
 		}
 	}
-	fmt.Println()
 }
 
 
