@@ -20,22 +20,22 @@
 │   ├── 3-Backend-Fundamentals
 │   ├── 4-Basic-MVC-Architecture-ORM
 │   └── 5-DevOps-CLI-Tools
-├── 3-Golang-Mini-Runner-Project
+├── 3-My-CLI-Workspace
 │   ├── cmd
-│   │   └── runner
-│   ├── docs
-│   │   ├── TaskList.eng.md
-│   │   └── TaskList.vi.md
+│   │   ├── expense.go
+│   │   ├── music.go
+│   │   ├── root.go
+│   │   └── task.go
 │   ├── internal
-│   │   ├── api
 │   │   ├── models
-│   │   ├── queue
-│   │   ├── state
-│   │   └── worker
-│   ├── pkg
-│   ├── scripts
-│   ├── Makefile
-│   ├── README.md
-│   └── go.mod
+│   │   │   ├── expense.go
+│   │   │   └── task.go
+│   │   ├── services
+│   │   └── storage
+│   │       └── storage.go
+│   ├── go.mod
+│   ├── go.sum
+│   ├── main.go
+│   └── workspace
 └── README.md
 ```
