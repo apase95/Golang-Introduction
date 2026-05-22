@@ -7,17 +7,25 @@ The system is divided into 3 independent modules, managing data through a local 
 ---
 
 ## ✨ Core Features
-
-1. **📝 Task Management:** 
+### **📝 Task Management:** 
    - An isolated REPL (Interactive Mode) environment for quick task operations (add, list, toggle, delete).
    - Intuitive color-coded status display for better visibility.
-2. **💸 Expense Tracker:**
+<img width="962" height="651" alt="image" src="https://github.com/user-attachments/assets/5b3b3e86-78b5-46a5-bd79-09c18607ff74" />
+
+
+### **💸 Expense Tracker:**
    - Lightning-fast personal finance tracking using simple commands.
    - Automatically calculates and displays the "Total Spent".
-3. **🎵 Local Music Player:**
+<img width="962" height="651" alt="image" src="https://github.com/user-attachments/assets/3dfee117-7cab-4b85-921e-73d6e9e8c8d4" />
+
+
+### **🎵 Local Music Player:**
    - Headless CLI music player utilizing `mpv`.
    - **MPRIS Integration:** Displays song titles and supports media controls directly on the OS Top Bar (Linux/GNOME).
    - Features a real-time playback timer and Vim-style keyboard shortcuts for seamless navigation and seeking.
+<img width="962" height="651" alt="image" src="https://github.com/user-attachments/assets/1fb0baa2-b39c-47d8-8847-52cec0902765" />
+
+
 
 ---
 
