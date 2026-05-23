@@ -16,7 +16,8 @@ The system is divided into 3 independent modules, managing data through a local 
 ### **💸 Expense Tracker:**
    - Lightning-fast personal finance tracking using simple commands.
    - Automatically calculates and displays the "Total Spent".
-<img width="962" height="651" alt="image" src="https://github.com/user-attachments/assets/3dfee117-7cab-4b85-921e-73d6e9e8c8d4" />
+<img width="964" height="643" alt="image" src="https://github.com/user-attachments/assets/369eca63-902f-4812-862f-39ea4cd04114" />
+
 
 
 ### **🎵 Local Music Player:**
@@ -81,9 +82,9 @@ open_task() {
 }
 
 open_expense() {
-    echo "======================= EXPENSE TRACKER MODE ======================="
-    echo "💻 Controls: add <amount> \"note\", list. Type 'q' or 'exit' to quit."
-    echo "===================================================================="
+    echo "================================== EXPENSE TRACKER MODE ================================="
+    echo "💻 Controls: add <amount> \"note\", list, delete <id>, clear. Type 'q' or 'exit' to quit."
+    echo "========================================================================================="
     while true; do
         printf "expense> "
         read -r user_input        
@@ -133,6 +134,8 @@ Type `open_task` anywhere in your terminal to enter the Task Mode.
 Type `open_expense` to enter the Financial Tracker Mode.
 - `add <amount> "note"`: Log a new expense (e.g., add 50000 "Morning Coffee").
 - `list`: View your expense history and the total amount spent.
+- `delte <ID>`: Delete a expense from the system.
+- `clear`: Delete all expenses from the system.
 - `q`: Exit Expense Mode.
 
 ### 3. Local Music Player
