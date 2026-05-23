@@ -8,7 +8,7 @@ import (
 )
 
 func init() {
-	expenseCmd.AddCommand(expenseAddCmd, expenseListCmd)
+	expenseCmd.AddCommand(expenseAddCmd, expenseListCmd, expenseDeleteCmd, expenseClearCmd)
 	RootCmd.AddCommand(expenseCmd)
 }
 
@@ -37,5 +37,23 @@ var expenseListCmd = &cobra.Command{
 	Short: "List all expenses and show total",
 	Run: func (cmd *cobra.Command, args []string) {
 		services.ListExpense()
+	},
+}
+
+var expenseDeleteCmd = &cobra.Command{
+	Use: "delete [id]",
+	Short: "Delete an expense by ID",
+	Run: func (cmd *cobra.Command, args []string) {
+		id, err := strconv.Atoi(args[0])
+		if err != nil { cmd.PrintErr("Error: ID must be a number"); return }
+		services.DeleteExpense(id)
+	},
+}
+
+var expenseClearCmd = &cobra.Command{
+	Use: "clear",
+	Short: "Clear all expense in list",
+	Run: func (cmd *cobra.Command, args []string) {
+		services.DeleteAllExpenses()
 	},
 }

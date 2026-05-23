@@ -37,10 +37,7 @@ func AddTask(title string) {
 func ListTasks() {
 	var tasks []models.Task
 	_ = storage.ReadJSON(TaskFile, &tasks)
-	if len(tasks) == 0 {
-		color.Yellow("No tasks found!")
-		return
-	}
+	if len(tasks) == 0 { color.Yellow("No tasks found!"); return }
 
 	fmt.Println("====== YOUR TASKS ======")
 	for _, t := range tasks {
@@ -69,7 +66,7 @@ func ToggleTaskStatus(id int) {
 			}; break
 		}
 	}; if !found { color.Red("Task ID %d not found.\n", id); return }
-_ = storage.WriteJSON(TaskFile, tasks)
+	_ = storage.WriteJSON(TaskFile, tasks)
 }
 
 
