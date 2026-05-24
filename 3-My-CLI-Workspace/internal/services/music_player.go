@@ -36,7 +36,7 @@ func PlayMusic(path string, shuffle bool) {
 
 	color.Green("🎵 Starting Music Player...")
 	color.Yellow("💻 Controls: [Enter]/n=Next | p=Prev | k=Pause | l=+5s | j=-5s | 01:25=Seek | q=Quit")
-	fmt.Println(strings.Repeat("-", 75))
+	fmt.Println(strings.Repeat("-", 85))
 
 	i := 0
 	for i >= 0 && i < len(playlist) {
