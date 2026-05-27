@@ -26,16 +26,12 @@
 │   │   ├── music.go
 │   │   ├── root.go
 │   │   └── task.go
-│   ├── internal
-│   │   ├── models
-│   │   │   ├── expense.go
-│   │   │   └── task.go
-│   │   ├── services
-│   │   └── storage
-│   │       └── storage.go
-│   ├── go.mod
-│   ├── go.sum
-│   ├── main.go
-│   └── workspace
+│   └── internal
+│       ├── models
+│       │   ├── expense.go
+│       │   └── task.go
+│       ├── services
+│       └── storage
+│           └── storage.go
 └── README.md
 ```
